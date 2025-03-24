@@ -14,6 +14,7 @@ public class DriveState : IState
     public void Enter()
     {
         stateMachine.Player.SetDestination();
+        stateMachine.Player.IndicatorHandler.SetOnBoard();
     }
 
     public void Exit()
@@ -23,6 +24,6 @@ public class DriveState : IState
 
     public void Update()
     {
-        
+        stateMachine.Player.UpdateParameter();
     }
 }

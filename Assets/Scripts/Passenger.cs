@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Passenger : MonoBehaviour
 {
     public PassengerSO Data;
@@ -10,7 +12,7 @@ public class Passenger : MonoBehaviour
 
     [field : Header("Passenger Info")]
     [field : SerializeField] public float Patience { get; private set; }
-    private float MaxPatience;
+    [field: SerializeField] public float MaxPatience;
 
     private void Awake()
     {
@@ -33,5 +35,10 @@ public class Passenger : MonoBehaviour
     public float CalculateDistance()
     {
         return (TargetDestination.transform.position - transform.position).magnitude;
+    }
+
+    public void ChagePatienceValue(float amount)
+    {
+        Patience = Mathf.Max(0, Patience - amount);
     }
 }

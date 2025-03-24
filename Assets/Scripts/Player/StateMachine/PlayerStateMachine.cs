@@ -29,7 +29,8 @@ public class PlayerStateMachine
 
     public void Update()
     {
-        currentState.Update();
+        if (currentState != null)
+            currentState.Update();
     }
 
 

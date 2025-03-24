@@ -9,10 +9,15 @@ public class Player : MonoBehaviour
 
     private NavMeshAgent agent;
     private PassengerSpawner passengerSpawner;
+    
+    
+    public IndicatorHandler IndicatorHandler;
 
     public Destination CurrentDestination;
 
     public Passenger CurrentPassenger;
+
+    public float PassedTime;
 
     private void Awake()
     {
@@ -25,6 +30,8 @@ public class Player : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         passengerSpawner = GetComponent<PassengerSpawner>();
         agent.speed = 10f;
+        GameManager.Instance.Player = this;
+        IndicatorHandler = GameManager.Instance.IndicatorHandler;
 
         StartCoroutine(Initialize());
     }
@@ -38,7 +45,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //stateMachine.Update();
+        stateMachine.Update();
     }
 
     public void SetPassenger()
@@ -46,6 +53,8 @@ public class Player : MonoBehaviour
         CurrentPassenger = passengerSpawner.SpawnPassenger();
         CurrentPassenger.IntiPassenger();
         agent.destination = CurrentPassenger.PickUpPoint.position;
+
+        PassedTime = 0;
     }
 
     public void SetDestination()
@@ -53,6 +62,13 @@ public class Player : MonoBehaviour
         CurrentDestination = CurrentPassenger.TargetDestination;
         agent.destination = CurrentDestination.transform.position;
         CurrentPassenger.gameObject.SetActive(false);
+    }
+
+    public void UpdateParameter()
+    {
+        PassedTime += Time.deltaTime;
+        CurrentPassenger.ChagePatienceValue(CurrentPassenger.Data.PatienceDecayRate);
+        IndicatorHandler.ChangeFillRatio(CurrentPassenger.Patience / CurrentPassenger.MaxPatience);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -63,7 +79,6 @@ public class Player : MonoBehaviour
         {
             if(destination.DestinationName == CurrentDestination.DestinationName)
             {
-                Debug.Log("도착");
                 stateMachine.ChangeState(stateMachine.IdleState);
             }
                 
