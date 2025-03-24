@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     private NavMeshAgent agent;
     private PassengerSpawner passengerSpawner;
 
-    public Transform Destination;
+    public Destination CurrentDestination;
 
     public Passenger CurrentPassenger;
 
@@ -24,8 +24,15 @@ public class Player : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         passengerSpawner = GetComponent<PassengerSpawner>();
-        stateMachine.ChangeState(stateMachine.IdleState);
         agent.speed = 10f;
+
+        StartCoroutine(Initialize());
+    }
+
+    IEnumerator Initialize()
+    {
+        yield return new WaitForEndOfFrame();
+        stateMachine.ChangeState(stateMachine.IdleState);
     }
 
     // Update is called once per frame
@@ -37,14 +44,15 @@ public class Player : MonoBehaviour
     public void SetPassenger()
     {
         CurrentPassenger = passengerSpawner.SpawnPassenger();
-        CurrentPassenger.SetTargetDestination();
+        CurrentPassenger.IntiPassenger();
         agent.destination = CurrentPassenger.PickUpPoint.position;
     }
 
     public void SetDestination()
     {
-        agent.destination = CurrentPassenger.TargetDestination.position;
-        Destroy(CurrentPassenger.gameObject);
+        CurrentDestination = CurrentPassenger.TargetDestination;
+        agent.destination = CurrentDestination.transform.position;
+        CurrentPassenger.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,6 +60,14 @@ public class Player : MonoBehaviour
         if (other.transform.parent.TryGetComponent(out Passenger passenger))
             stateMachine.ChangeState(stateMachine.DriveState);
         else if (other.TryGetComponent(out Destination destination))
-            stateMachine.ChangeState(stateMachine.IdleState);
+        {
+            if(destination.DestinationName == CurrentDestination.DestinationName)
+            {
+                Debug.Log("도착");
+                stateMachine.ChangeState(stateMachine.IdleState);
+            }
+                
+        }
+            
     }
 }

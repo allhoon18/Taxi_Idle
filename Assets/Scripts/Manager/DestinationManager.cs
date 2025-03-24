@@ -5,19 +5,20 @@ using UnityEngine;
 
 public class DestinationManager : MonoBehaviour
 {
-    public static DestinationManager Instance;
+    private static DestinationManager instance;
+    public static DestinationManager Instance { get => instance; }
 
-    [SerializeField] public List<Transform> Destinations; 
+    [SerializeField] public List<Destination> Destinations; 
 
     private void Awake()
     {
         if(Instance == null)
         {
-            Instance = this;
+            instance = this;
         }
     }
 
-    public Transform SetRandomDestination()
+    public Destination SetRandomDestination()
     {
         if (Destinations.Count == 0) return null;
 
