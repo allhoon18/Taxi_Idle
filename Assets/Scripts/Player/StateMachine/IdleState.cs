@@ -13,8 +13,8 @@ public class IdleState : IState
 
     public void Enter()
     {
-        stateMachine.Player.SetPassenger();
-        stateMachine.Player.IndicatorHandler.SetEmpty();
+        stateMachine.Player.Controller.SetPassenger();
+        stateMachine.Player.Controller.IndicatorHandler.SetEmpty();
     }
 
     public void Exit()
