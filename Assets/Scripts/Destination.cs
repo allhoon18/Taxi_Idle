@@ -8,6 +8,6 @@ public class Destination : MonoBehaviour
 
     void Start()
     {
-        DestinationManager.Instance.Destinations.Add(this.transform);
+        //DestinationManager.Instance.Destinations.Add(this.transform);
     }
 }
