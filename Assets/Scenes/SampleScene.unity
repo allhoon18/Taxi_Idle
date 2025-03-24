@@ -2649,7 +2649,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 650917905}
+  - component: {fileID: 650917912}
   - component: {fileID: 650917908}
+  - component: {fileID: 650917911}
   - component: {fileID: 650917906}
   - component: {fileID: 650917907}
   - component: {fileID: 650917910}
@@ -2731,6 +2733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentDestination: {fileID: 0}
   CurrentPassenger: {fileID: 0}
+  PassedTime: 0
 --- !u!54 &650917909
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2779,6 +2782,36 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 1, z: 3}
   m_Center: {x: 0, y: 1, z: -0.3}
+--- !u!114 &650917911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650917904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9cd8ae505fedba47be0b4872c44ddd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gold: 0
+  Speed: 0
+  SpawnRate: 0
+  PatienceDecayRate: 0
+--- !u!114 &650917912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650917904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d16d6badfd110d44be94c42ee43a802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 0}
+  Stat: {fileID: 0}
 --- !u!1 &657725408
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,10 +3519,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 3a7e1c0a00828fd4196c8cd24886d2ed, type: 3}
       propertyPath: m_Name
       value: Road Corner_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 3a7e1c0a00828fd4196c8cd24886d2ed, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a7e1c0a00828fd4196c8cd24886d2ed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5036,6 +5065,7 @@ GameObject:
   - component: {fileID: 1088821821}
   - component: {fileID: 1088821820}
   - component: {fileID: 1088821819}
+  - component: {fileID: 1088821822}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -5127,6 +5157,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1088821822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088821817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d977e1fb46cc4e46bb9353a1d9dce10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EmptySign: {fileID: 1512870553}
+  OnBoardSign: {fileID: 1541117525}
+  ParameterSet: {fileID: 1386240176}
+  Parameter: {fileID: 1767502386}
 --- !u!1001 &1108957580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6914,7 +6960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1512870554
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8133,8 +8179,8 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1767502387

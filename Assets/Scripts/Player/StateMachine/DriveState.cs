@@ -14,7 +14,7 @@ public class DriveState : IState
     public void Enter()
     {
         stateMachine.Player.Controller.SetDestination();
-        stateMachine.Player.Controller.IndicatorHandler.SetOnBoard();
+        stateMachine.Player.Controller.SetSign(PlayerStatus.OnBoard);
     }
 
     public void Exit()

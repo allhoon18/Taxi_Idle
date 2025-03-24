@@ -14,7 +14,7 @@ public class IdleState : IState
     public void Enter()
     {
         stateMachine.Player.Controller.SetPassenger();
-        stateMachine.Player.Controller.IndicatorHandler.SetEmpty();
+        stateMachine.Player.Controller.SetSign(PlayerStatus.Empty);
     }
 
     public void Exit()

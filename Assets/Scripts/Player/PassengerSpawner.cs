@@ -33,4 +33,9 @@ public class PassengerSpawner : MonoBehaviour
         return passenger;
     }
 
+    public void CheckSpawnArea()
+    { 
+
+    }
+
 }

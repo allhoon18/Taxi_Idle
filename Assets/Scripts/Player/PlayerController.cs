@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum PlayerStatus
+{
+    Empty,
+    OnBoard
+}
+
 public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private PassengerSpawner passengerSpawner;
-
-    public IndicatorHandler IndicatorHandler;
+    private PlayerStats stat;
+    private IndicatorHandler indicatorHandler;
 
     public Destination CurrentDestination;
 
@@ -22,9 +28,8 @@ public class PlayerController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         passengerSpawner = GetComponent<PassengerSpawner>();
         agent.speed = 10f;
-        IndicatorHandler = GameManager.Instance.IndicatorHandler;
-
-        
+        indicatorHandler = GameManager.Instance.IndicatorHandler;
+        stat = GameManager.Instance.Player.Stat;
     }
 
     public void SetPassenger()
@@ -43,10 +48,24 @@ public class PlayerController : MonoBehaviour
         CurrentPassenger.gameObject.SetActive(false);
     }
 
+    public void SetSign(PlayerStatus playerStatus)
+    {
+        switch(playerStatus)
+        {
+            case PlayerStatus.Empty:
+                indicatorHandler.SetEmpty();
+                break;
+
+            case PlayerStatus.OnBoard:
+                indicatorHandler.SetOnBoard();
+                break;
+        }
+    }
+
     public void UpdateParameter()
     {
         PassedTime += Time.deltaTime;
-        CurrentPassenger.ChagePatienceValue(CurrentPassenger.Data.PatienceDecayRate);
-        IndicatorHandler.ChangeFillRatio(CurrentPassenger.Patience / CurrentPassenger.MaxPatience);
+        CurrentPassenger.ChagePatienceValue(stat.PatienceDecayRate);
+        indicatorHandler.ChangeFillRatio(CurrentPassenger.Patience / CurrentPassenger.MaxPatience);
     }
 }
