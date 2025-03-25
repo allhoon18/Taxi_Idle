@@ -26,8 +26,20 @@ public class Player : MonoBehaviour
 
     IEnumerator Initialize()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(InitializeCondition);
+
+        Controller.Init(GameManager.Instance.IndicatorHandler, Stat);
+
         stateMachine.ChangeState(stateMachine.IdleState);
+    }
+
+    bool InitializeCondition()
+    {
+        if (GameManager.Instance.IndicatorHandler == null) return false;
+
+        else if (GameManager.Instance.Player == null) return false;
+
+        return true;
     }
 
     // Update is called once per frame
@@ -42,6 +54,7 @@ public class Player : MonoBehaviour
             stateMachine.ChangeState(stateMachine.DriveState);
         else if (other.TryGetComponent(out Destination destination))
         {
+            if (Controller.CurrentDestination == null) return;
             if (destination.DestinationName == Controller.CurrentDestination.DestinationName)
             {
                 stateMachine.ChangeState(stateMachine.IdleState);
