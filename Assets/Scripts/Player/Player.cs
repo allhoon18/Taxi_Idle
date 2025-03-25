@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     public PlayerController Controller;
     public PlayerStats Stat;
+    public IndicatorHandler IndicatorHandler;
 
     private void Awake()
     {
@@ -28,7 +29,10 @@ public class Player : MonoBehaviour
     {
         yield return new WaitUntil(InitializeCondition);
 
-        Controller.Init(GameManager.Instance.IndicatorHandler, Stat);
+        IndicatorHandler = GameManager.Instance.IndicatorHandler;
+
+        Controller.Init(this);
+        Stat.Init(this);
 
         stateMachine.ChangeState(stateMachine.IdleState);
     }

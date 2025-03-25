@@ -13,22 +13,19 @@ public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private PassengerSpawner passengerSpawner;
-    private PlayerStats stat;
-    private IndicatorHandler indicatorHandler;
+
+    private Player player;
 
     public Destination CurrentDestination;
 
     public Passenger CurrentPassenger;
 
-    public float PassedTime;
-
-    public void Init(IndicatorHandler indicatorHandler, PlayerStats stat)
+    public void Init(Player player)
     {
         agent = GetComponent<NavMeshAgent>();
         passengerSpawner = GetComponent<PassengerSpawner>();
-        agent.speed = 10f;
-        this.indicatorHandler = indicatorHandler;
-        this.stat = stat;
+        this.player = player;
+        agent.speed = player.Stat.Speed;
     }
 
     public void SetPassenger()
@@ -37,7 +34,8 @@ public class PlayerController : MonoBehaviour
         CurrentPassenger.IntiPassenger();
         agent.destination = CurrentPassenger.PickUpPoint.position;
 
-        PassedTime = 0;
+        player.Stat.PassedTime = 0;
+        player.Stat.ResetCoroutine();
     }
 
     public void SetDestination()
@@ -52,19 +50,12 @@ public class PlayerController : MonoBehaviour
         switch(playerStatus)
         {
             case PlayerStatus.Empty:
-                indicatorHandler.SetEmpty();
+                player.IndicatorHandler.SetEmpty();
                 break;
 
             case PlayerStatus.OnBoard:
-                indicatorHandler.SetOnBoard();
+                player.IndicatorHandler.SetOnBoard();
                 break;
         }
-    }
-
-    public void UpdateParameter()
-    {
-        PassedTime += Time.deltaTime;
-        CurrentPassenger.ChagePatienceValue(stat.PatienceDecayRate);
-        indicatorHandler.ChangeFillRatio(CurrentPassenger.Patience / CurrentPassenger.MaxPatience);
     }
 }

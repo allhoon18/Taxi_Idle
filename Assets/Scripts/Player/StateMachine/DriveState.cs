@@ -19,11 +19,13 @@ public class DriveState : IState
 
     public void Exit()
     {
-        
+        int fare = stateMachine.Player.Controller.CurrentPassenger.Patience == 0 ?
+            stateMachine.Player.Stat.CalculateGold() / 2 : stateMachine.Player.Stat.CalculateGold();
+        stateMachine.Player.Stat.AddGold(fare);
     }
 
     public void Update()
     {
-        stateMachine.Player.Controller.UpdateParameter();
+        stateMachine.Player.Stat.UpdateParameter();
     }
 }
