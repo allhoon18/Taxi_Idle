@@ -5,7 +5,8 @@ using UnityEngine;
 public enum StatType
 {
     Speed,
-    DecayRate
+    DecayRate,
+    Gold
 }
 
 public class PlayerStats : MonoBehaviour
@@ -85,6 +86,7 @@ public class PlayerStats : MonoBehaviour
     {
         Gold += amount;
         UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
+        UIManager.Instance.GetUI(Data.STAT_UI).ChangeOnStat(StatType.Gold, amount);
     }
 
     public int GetUpgradePrice(StatType type)
@@ -118,6 +120,7 @@ public class PlayerStats : MonoBehaviour
 
         UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
         UIManager.Instance.GetUI(Data.UPGRADE_UI).Refresh();
+        UIManager.Instance.GetUI(Data.STAT_UI).ChangeOnStat(type, value);
     }
 
 }
