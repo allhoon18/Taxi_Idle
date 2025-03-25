@@ -11,9 +11,14 @@ public class IndicatorHandler : MonoBehaviour
     [SerializeField] private GameObject ParameterSet;
     [SerializeField] private Image Parameter;
 
+    [SerializeField] private GameObject SuccessSign;
+    [SerializeField] private GameObject FailSign;
+
     private void Start()
     {
         GameManager.Instance.IndicatorHandler = this;
+        FailSign.SetActive(false);
+        SuccessSign.SetActive(false);
     }
 
     public void SetEmpty()
@@ -28,11 +33,33 @@ public class IndicatorHandler : MonoBehaviour
         EmptySign.SetActive(false);
         OnBoardSign.SetActive(true);
         ParameterSet.SetActive(true);
-
     }
 
     public void ChangeFillRatio(float ratio)
     {
         Parameter.fillAmount = ratio;
+    }
+
+    public void SetResultSign(bool isFail)
+    {
+        if(isFail)
+        {
+            FailSign.SetActive(true);
+            SuccessSign.SetActive(false);
+        }
+        else
+        {
+            FailSign.SetActive(true);
+            SuccessSign.SetActive(false);
+        }
+
+        StartCoroutine(HideSign());
+    }
+
+    IEnumerator HideSign()
+    {
+        yield return new WaitForSeconds(2f);
+        FailSign.SetActive(false);
+        SuccessSign.SetActive(false);
     }
 }

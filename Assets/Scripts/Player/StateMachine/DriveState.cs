@@ -19,9 +19,7 @@ public class DriveState : IState
 
     public void Exit()
     {
-        int fare = stateMachine.Player.Controller.CurrentPassenger.Patience == 0 ?
-            stateMachine.Player.Stat.CalculateGold() / 2 : stateMachine.Player.Stat.CalculateGold();
-        stateMachine.Player.Stat.AddGold(fare);
+        stateMachine.Player.Stat.Pay();
     }
 
     public void Update()

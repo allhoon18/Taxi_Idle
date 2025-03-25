@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum StatType
+{
+    Speed,
+    DecayRate
+}
+
 public class PlayerStats : MonoBehaviour
 {
     private Player player; 
@@ -51,6 +57,25 @@ public class PlayerStats : MonoBehaviour
         decayCoroutine = null;
     }
 
+    public void Pay()
+    {
+        int payment;
+
+        if (player.Controller.CurrentPassenger.Patience == 0)
+        {
+            payment = CalculateGold() / 2;
+            
+        }
+        else
+        {
+            payment = CalculateGold();
+        }
+
+        player.IndicatorHandler.SetResultSign(player.Controller.CurrentPassenger.Patience == 0);
+
+        AddGold(payment);
+    }
+
     public int CalculateGold()
     {
         return Mathf.RoundToInt(PassedTime + player.Controller.CurrentPassenger.Patience);
@@ -59,6 +84,40 @@ public class PlayerStats : MonoBehaviour
     public void AddGold(int amount)
     {
         Gold += amount;
+        UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
+    }
+
+    public int GetUpgradePrice(StatType type)
+    {
+        switch (type)
+        {
+            case StatType.Speed:
+                return 10 + (int)Speed - 10;
+
+            case StatType.DecayRate:
+                return 10 + 10 - Mathf.RoundToInt(PatienceDecayRate);
+
+            default:
+                return 0;
+        }
+    }
+
+    public void ChangeStat(StatType type, float value)
+    {
+        switch(type)
+        {
+            case StatType.Speed:
+                Speed += value;
+                player.Controller.SetSpeed(Speed);
+                break;
+
+            case StatType.DecayRate:
+                PatienceDecayRate += value;
+                break;
+        }
+
+        UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
+        UIManager.Instance.GetUI(Data.UPGRADE_UI).Refresh();
     }
 
 }

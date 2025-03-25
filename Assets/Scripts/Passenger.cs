@@ -8,6 +8,7 @@ using UnityEngine;
 public class Passenger : MonoBehaviour
 {
     public PassengerSO Data;
+    public Destination StartDestination;
     public Destination TargetDestination;
     public Transform PickUpPoint;
 
@@ -24,9 +25,10 @@ public class Passenger : MonoBehaviour
     {
         do
         {
+            Debug.Log("SetDestination");
             TargetDestination = DestinationManager.Instance.SetRandomDestination();
         }
-        while (transform.position == TargetDestination.transform.position);
+        while (StartDestination == TargetDestination);
     }
 
     public void IntiPassenger()

@@ -58,4 +58,9 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    public void SetSpeed(float value)
+    {
+        agent.speed = value;
+    }
 }
