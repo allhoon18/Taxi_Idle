@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class StatUI : MonoBehaviour
+public class StatUI : BaseUI
 {
     [SerializeField] TextMeshProUGUI speedText;
     [SerializeField] TextMeshProUGUI decayText;
     [SerializeField] TextMeshProUGUI GoldText;
 
-    private void Update()
+    public override void Initialize()
+    {
+        Refresh();
+    }
+
+    public override void Refresh()
     {
         speedText.text = GameManager.Instance.Player.Stat.Speed.ToString();
         decayText.text = GameManager.Instance.Player.Stat.PatienceDecayRate.ToString();

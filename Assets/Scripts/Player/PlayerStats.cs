@@ -60,4 +60,5 @@ public class PlayerStats : MonoBehaviour
     {
         Gold += amount;
     }
+
 }

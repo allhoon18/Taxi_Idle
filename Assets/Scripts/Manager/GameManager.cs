@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        UIManager.Instance.Initialize();
+    }
+
     public Player Player;
     public IndicatorHandler IndicatorHandler;
 

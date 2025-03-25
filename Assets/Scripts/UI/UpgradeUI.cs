@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeUI : MonoBehaviour
+public class UpgradeUI : BaseUI
 {
     [SerializeField] private Button speedUpButton;
     [SerializeField] private Button decayDownButton;
     [SerializeField] private Button closeButton;
 
-    private void Start()
+    public override void Initialize()
     {
         closeButton.onClick.AddListener(OnCloseUpgradeTab);
         speedUpButton.onClick.AddListener(OnSpeedUp);
@@ -36,6 +36,11 @@ public class UpgradeUI : MonoBehaviour
 
     void OnCloseUpgradeTab()
     {
-        gameObject.SetActive(false);
+        UIManager.Instance.ClosePopUp(Data.UPGRADE_UI);
+    }
+
+    public override void Refresh()
+    {
+        
     }
 }

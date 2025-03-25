@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Destination
   - Passenger
+  - UI
   layers:
   - Default
   - TransparentFX
