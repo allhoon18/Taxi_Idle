@@ -7,6 +7,7 @@ using UnityEngine;
 public class Destination : MonoBehaviour
 {
     [field : SerializeField] public string DestinationName { get; private set; }
+    public float roadDirAngle;
 
     void Start()
     {

@@ -22,14 +22,13 @@ public class PlayerController : MonoBehaviour
 
     public float PassedTime;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Init(IndicatorHandler indicatorHandler, PlayerStats stat)
     {
         agent = GetComponent<NavMeshAgent>();
         passengerSpawner = GetComponent<PassengerSpawner>();
         agent.speed = 10f;
-        indicatorHandler = GameManager.Instance.IndicatorHandler;
-        stat = GameManager.Instance.Player.Stat;
+        this.indicatorHandler = indicatorHandler;
+        this.stat = stat;
     }
 
     public void SetPassenger()

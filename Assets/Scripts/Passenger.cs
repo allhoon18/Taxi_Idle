@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 [Serializable]
@@ -21,7 +22,11 @@ public class Passenger : MonoBehaviour
 
     void SetTargetDestination()
     {
-        TargetDestination = DestinationManager.Instance.SetRandomDestination();
+        do
+        {
+            TargetDestination = DestinationManager.Instance.SetRandomDestination();
+        }
+        while (transform.position == TargetDestination.transform.position);
     }
 
     public void IntiPassenger()
