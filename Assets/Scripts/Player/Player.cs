@@ -59,9 +59,11 @@ public class Player : MonoBehaviour
 
         if (other.transform.parent.TryGetComponent(out Passenger passenger))
             stateMachine.ChangeState(stateMachine.DriveState);
+
         else if (other.TryGetComponent(out Destination destination))
         {
             if (Controller.CurrentDestination == null) return;
+
             if (destination.DestinationName == Controller.CurrentDestination.DestinationName)
             {
                 stateMachine.ChangeState(stateMachine.IdleState);

@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         CurrentPassenger = passengerSpawner.SpawnPassenger();
         CurrentPassenger.IntiPassenger();
-        agent.destination = CurrentPassenger.PickUpPoint.position;
+        agent.destination = CurrentPassenger.StartDestination.transform.position;
 
         player.Stat.PassedTime = 0;
         player.Stat.ResetCoroutine();

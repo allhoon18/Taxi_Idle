@@ -50,17 +50,17 @@ public class PassengerSpawner : MonoBehaviour
 
         GameObject passengerObj;
 
-        if (!passengerData.TryGetValue(spawnPassengerType, out passengerObj))
-        {
-            spawnPos = destination.transform.position + Vector3.up;
-            passengerObj = Instantiate(passengerPrefabs[((int)spawnPassengerType)], spawnPos, Quaternion.Euler(new Vector3(0, destination.roadDirAngle, 0)));
-            passengerData[spawnPassengerType] = passengerObj;
-        }
-        else
+        if (passengerData.TryGetValue(spawnPassengerType, out passengerObj))
         {
             passengerObj.transform.position = destination.transform.position + Vector3.up;
             passengerObj.transform.rotation = Quaternion.Euler(new Vector3(0, destination.roadDirAngle, 0));
             passengerObj.SetActive(true);
+        }
+        else
+        {
+            spawnPos = destination.transform.position + Vector3.up;
+            passengerObj = Instantiate(passengerPrefabs[((int)spawnPassengerType)], spawnPos, Quaternion.Euler(new Vector3(0, destination.roadDirAngle, 0)));
+            passengerData[spawnPassengerType] = passengerObj;
         }
 
         Passenger passenger = passengerObj.GetComponent<Passenger>();
