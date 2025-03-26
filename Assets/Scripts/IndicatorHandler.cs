@@ -49,8 +49,8 @@ public class IndicatorHandler : MonoBehaviour
         }
         else
         {
-            FailSign.SetActive(true);
-            SuccessSign.SetActive(false);
+            FailSign.SetActive(false);
+            SuccessSign.SetActive(true);
         }
 
         StartCoroutine(HideSign());

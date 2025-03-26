@@ -6,6 +6,7 @@ public enum StatType
 {
     Speed,
     DecayRate,
+    BreakForce,
     Gold
 }
 
@@ -15,6 +16,7 @@ public class PlayerStats : MonoBehaviour
 
     public int Gold;
     public float Speed;
+    public float BreakRate;
     public float PatienceDecayRate;
     public float PassedTime;
 
@@ -98,6 +100,9 @@ public class PlayerStats : MonoBehaviour
             case StatType.DecayRate:
                 return 10 + 10 - Mathf.RoundToInt(PatienceDecayRate);
 
+            case StatType.BreakForce:
+                return 10 + (int)((1 - BreakRate) * 10);
+
             default:
                 return 0;
         }
@@ -114,6 +119,10 @@ public class PlayerStats : MonoBehaviour
 
             case StatType.DecayRate:
                 PatienceDecayRate += value;
+                break;
+
+            case StatType.BreakForce:
+                BreakRate -= value;
                 break;
         }
 

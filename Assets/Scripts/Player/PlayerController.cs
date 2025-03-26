@@ -61,6 +61,16 @@ public class PlayerController : MonoBehaviour
 
     public void SetSpeed(float value)
     {
+        if (agent == null) return;
+
         agent.speed = value;
     }
+
+    public void ReduceSpeed(float rate)
+    {
+        if (agent == null) return;
+
+        agent.speed *= rate;
+    }
+
 }

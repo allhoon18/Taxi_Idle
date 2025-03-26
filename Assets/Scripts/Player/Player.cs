@@ -54,6 +54,9 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.CompareTag("Crossroad"))
+            Controller.ReduceSpeed(Stat.BreakRate);
+
         if (other.transform.parent.TryGetComponent(out Passenger passenger))
             stateMachine.ChangeState(stateMachine.DriveState);
         else if (other.TryGetComponent(out Destination destination))
@@ -65,6 +68,11 @@ public class Player : MonoBehaviour
             }
 
         }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Crossroad"))
+            Controller.SetSpeed(Stat.Speed);
     }
 }
