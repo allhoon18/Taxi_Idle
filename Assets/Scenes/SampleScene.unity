@@ -4267,9 +4267,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gold: 0
-  Speed: 10
-  BreakRate: 0.9
-  PatienceDecayRate: 10
+  Speed: 0
+  BreakRate: 0
+  PatienceDecayRate: 0
   PassedTime: 0
 --- !u!114 &650917912
 MonoBehaviour:
