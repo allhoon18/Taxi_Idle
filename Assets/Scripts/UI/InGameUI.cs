@@ -19,6 +19,7 @@ public class InGameUI : BaseUI
 
     void OnShowUpgradeUI()
     {
+        UIManager.Instance.GetUI(Data.UPGRADE_UI).Refresh();
         UIManager.Instance.OpenPopUp(Data.UPGRADE_UI);
     }
 

@@ -10,30 +10,14 @@ public class Passenger : MonoBehaviour
     public PassengerSO Data;
     public Destination StartDestination;
     public Destination TargetDestination;
-    public Transform PickUpPoint;
 
     [field : Header("Passenger Info")]
     [field : SerializeField] public float Patience { get; private set; }
     [field: SerializeField] public float MaxPatience;
 
-    private void Awake()
-    {
-        PickUpPoint = transform.GetChild(0);
-    }
-
-    void SetTargetDestination()
-    {
-        do
-        {
-            Debug.Log("SetDestination");
-            TargetDestination = DestinationManager.Instance.SetRandomDestination();
-        }
-        while (StartDestination == TargetDestination);
-    }
-
     public void IntiPassenger()
     {
-        SetTargetDestination();
+        TargetDestination = DestinationManager.Instance.SetRandomDestination();
 
         MaxPatience = Data.InitialPatience + CalculateDistance() * Data.PatienceRaiseRate;
         Patience = MaxPatience;
@@ -41,7 +25,7 @@ public class Passenger : MonoBehaviour
 
     public float CalculateDistance()
     {
-        return (TargetDestination.transform.position - transform.position).magnitude;
+        return (TargetDestination.transform.position - StartDestination.transform.position).magnitude;
     }
 
     public void ChagePatienceValue(float amount)

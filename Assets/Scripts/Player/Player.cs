@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -31,9 +32,9 @@ public class Player : MonoBehaviour
 
         IndicatorHandler = GameManager.Instance.IndicatorHandler;
 
-        Controller.Init(this);
         Stat.Init(this);
-
+        Controller.Init(this);
+        
         stateMachine.ChangeState(stateMachine.IdleState);
     }
 
@@ -54,17 +55,27 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.CompareTag("Crossroad"))
+            Controller.ReduceSpeed(Stat.BreakRate);
+
         if (other.transform.parent.TryGetComponent(out Passenger passenger))
             stateMachine.ChangeState(stateMachine.DriveState);
+
         else if (other.TryGetComponent(out Destination destination))
         {
             if (Controller.CurrentDestination == null) return;
+
             if (destination.DestinationName == Controller.CurrentDestination.DestinationName)
             {
                 stateMachine.ChangeState(stateMachine.IdleState);
             }
 
         }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Crossroad"))
+            Controller.SetSpeed(Stat.Speed);
     }
 }

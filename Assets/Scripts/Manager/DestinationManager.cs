@@ -8,7 +8,12 @@ public class DestinationManager : MonoBehaviour
     private static DestinationManager instance;
     public static DestinationManager Instance { get => instance; }
 
-    [SerializeField] public List<Destination> Destinations; 
+    [SerializeField] public List<Destination> Destinations;
+    [SerializeField] private Material startPointMaterial;
+    [SerializeField] private Material endPointMaterial;
+
+    private Destination startPoint;
+    private Destination endPoint;
 
     private void Awake()
     {
@@ -18,10 +23,38 @@ public class DestinationManager : MonoBehaviour
         }
     }
 
+    private void InactiveAllDestination()
+    {
+        if (Destinations == null) return;
+
+        foreach(Destination destination in Destinations)
+        {
+            destination.gameObject.SetActive(false);
+        }
+    }
+
+    public Destination SetRandomStartPoint()
+    {
+        startPoint = Destinations[Random.Range(0, Destinations.Count)];
+        return startPoint;
+    }
+
     public Destination SetRandomDestination()
     {
-        if (Destinations.Count == 0) return null;
+        InactiveAllDestination();
 
-        return Destinations[Random.Range(0, Destinations.Count)];
+        do
+        {
+            endPoint = Destinations[Random.Range(0, Destinations.Count)];
+        }
+        while (endPoint == startPoint);
+
+        startPoint.gameObject.SetActive(true);
+        startPoint.gameObject.GetComponentInChildren<MeshRenderer>().material = startPointMaterial;
+
+        endPoint.gameObject.SetActive(true);
+        endPoint.gameObject.GetComponentInChildren<MeshRenderer>().material = endPointMaterial;
+
+        return endPoint;
     }
 }

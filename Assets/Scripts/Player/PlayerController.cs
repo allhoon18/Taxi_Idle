@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         CurrentPassenger = passengerSpawner.SpawnPassenger();
         CurrentPassenger.IntiPassenger();
-        agent.destination = CurrentPassenger.PickUpPoint.position;
+        agent.destination = CurrentPassenger.StartDestination.transform.position;
 
         player.Stat.PassedTime = 0;
         player.Stat.ResetCoroutine();
@@ -61,6 +61,16 @@ public class PlayerController : MonoBehaviour
 
     public void SetSpeed(float value)
     {
+        if (agent == null) return;
+
         agent.speed = value;
     }
+
+    public void ReduceSpeed(float rate)
+    {
+        if (agent == null) return;
+
+        agent.speed *= rate;
+    }
+
 }

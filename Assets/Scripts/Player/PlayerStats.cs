@@ -6,6 +6,7 @@ public enum StatType
 {
     Speed,
     DecayRate,
+    BreakForce,
     Gold
 }
 
@@ -15,7 +16,7 @@ public class PlayerStats : MonoBehaviour
 
     public int Gold;
     public float Speed;
-    public float SpawnRate;
+    public float BreakRate;
     public float PatienceDecayRate;
     public float PassedTime;
 
@@ -24,6 +25,18 @@ public class PlayerStats : MonoBehaviour
     public void Init(Player player)
     {
         this.player = player;
+
+        SaveFormat save = GameManager.Instance.Load();
+
+        if (save != null)
+        {
+            Gold = save.Gold;
+            Speed = save.Speed;
+            BreakRate = save.BreakRate;
+            PatienceDecayRate = save.DecayRate;
+        }
+
+        UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
     }
 
     public void ResetCoroutine()
@@ -87,6 +100,8 @@ public class PlayerStats : MonoBehaviour
         Gold += amount;
         UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
         UIManager.Instance.GetUI(Data.STAT_UI).ChangeOnStat(StatType.Gold, amount);
+
+        GameManager.Instance.Save();
     }
 
     public int GetUpgradePrice(StatType type)
@@ -98,6 +113,9 @@ public class PlayerStats : MonoBehaviour
 
             case StatType.DecayRate:
                 return 10 + 10 - Mathf.RoundToInt(PatienceDecayRate);
+
+            case StatType.BreakForce:
+                return 10 + (int)((1 - BreakRate) * 10);
 
             default:
                 return 0;
@@ -116,11 +134,17 @@ public class PlayerStats : MonoBehaviour
             case StatType.DecayRate:
                 PatienceDecayRate += value;
                 break;
+
+            case StatType.BreakForce:
+                BreakRate -= value;
+                break;
         }
 
         UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
         UIManager.Instance.GetUI(Data.UPGRADE_UI).Refresh();
         UIManager.Instance.GetUI(Data.STAT_UI).ChangeOnStat(type, value);
+
+        GameManager.Instance.Save();
     }
 
 }
