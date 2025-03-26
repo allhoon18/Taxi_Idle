@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9120042629161645111}
   - component: {fileID: 6447140809798358282}
   m_Layer: 0
-  m_Name: Passenger
+  m_Name: NormalPassenger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,8 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: b4660c2b7fe007749ba589fabc503150, type: 2}
+  StartDestination: {fileID: 0}
   TargetDestination: {fileID: 0}
   PickUpPoint: {fileID: 5268096011664154621}
+  <Patience>k__BackingField: 0
+  MaxPatience: 0
 --- !u!1 &8524414921172282171
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +129,7 @@ Transform:
   m_GameObject: {fileID: 8524414921172282171}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 2}
+  m_LocalPosition: {x: 0, y: 0.5, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -151,5 +154,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

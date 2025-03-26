@@ -15,7 +15,6 @@ public class PlayerStats : MonoBehaviour
 
     public int Gold;
     public float Speed;
-    public float SpawnRate;
     public float PatienceDecayRate;
     public float PassedTime;
 

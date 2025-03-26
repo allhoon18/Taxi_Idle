@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 708dd89ddb5faee438071fde34e839d1, type: 3}
-  m_Name: PassengerData
+  m_Name: HastyPassengerData
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Passenger1
+  <Name>k__BackingField: HastyPassenger
   <InitialPatience>k__BackingField: 50
-  <PatienceRaiseRate>k__BackingField: 0.75
-  <PatienceDecayRate>k__BackingField: 0.2
+  <PatienceRaiseRate>k__BackingField: 0.25
