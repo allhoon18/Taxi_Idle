@@ -25,6 +25,18 @@ public class PlayerStats : MonoBehaviour
     public void Init(Player player)
     {
         this.player = player;
+
+        SaveFormat save = GameManager.Instance.Load();
+
+        if (save != null)
+        {
+            Gold = save.Gold;
+            Speed = save.Speed;
+            BreakRate = save.BreakRate;
+            PatienceDecayRate = save.DecayRate;
+        }
+
+        UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
     }
 
     public void ResetCoroutine()
@@ -88,6 +100,8 @@ public class PlayerStats : MonoBehaviour
         Gold += amount;
         UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
         UIManager.Instance.GetUI(Data.STAT_UI).ChangeOnStat(StatType.Gold, amount);
+
+        GameManager.Instance.Save();
     }
 
     public int GetUpgradePrice(StatType type)
@@ -129,6 +143,8 @@ public class PlayerStats : MonoBehaviour
         UIManager.Instance.GetUI(Data.STAT_UI).Refresh();
         UIManager.Instance.GetUI(Data.UPGRADE_UI).Refresh();
         UIManager.Instance.GetUI(Data.STAT_UI).ChangeOnStat(type, value);
+
+        GameManager.Instance.Save();
     }
 
 }

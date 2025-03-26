@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -31,9 +32,9 @@ public class Player : MonoBehaviour
 
         IndicatorHandler = GameManager.Instance.IndicatorHandler;
 
-        Controller.Init(this);
         Stat.Init(this);
-
+        Controller.Init(this);
+        
         stateMachine.ChangeState(stateMachine.IdleState);
     }
 
